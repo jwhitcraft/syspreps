@@ -1,0 +1,4 @@
+syspreps
+========
+
+openSUSE sysprep scripts
