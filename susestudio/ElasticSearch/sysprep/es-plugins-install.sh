@@ -8,6 +8,7 @@ if [ $? -eq 0 ]; then
     bin/plugin --install polyfractal/elasticsearch-segmentspy &> /dev/null
     bin/plugin --install elasticsearch/elasticsearch-lang-python/1.2.0 &> /dev/null
     bin/plugin --install elasticsearch/elasticsearch-lang-javascript/1.4.0 &> /dev/null
+    bin/plugin --install royrusso/elasticsearch-HQ &> /dev/null
     /etc/init.d/elasticsearch restart &> /dev/null
     echo "done"
 else

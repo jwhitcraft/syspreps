@@ -7,7 +7,7 @@ Available users:
 
 Installed software:
 - Oracle Java JDK 1.7.0_21
-- ElasticSearch 0.90.2
+- ElasticSearch 0.90.3
 
 Elastic Search:
     * Cluster name: elasticsearch
@@ -19,9 +19,10 @@ Elastic Search:
     * Autostart:    yes
 
 ES site plugins: (*)
-    * Head:         http://host:9200/_plugin/head
-    * Bigdesk:      http://host:9200/_plugin/bigdesk
-    * SegmentSpy:   http://host:9200/_plugin/segmentspy
+    * Head:         http://host:9200/_plugin/head/
+    * Bigdesk:      http://host:9200/_plugin/bigdesk/
+    * SegmentSpy:   http://host:9200/_plugin/segmentspy/
+    * ElasticHQ:    http://host:9200/_plugin/HQ/
 
 ES scripting plugins: (*)
     * Python
