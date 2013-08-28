@@ -10,7 +10,7 @@ Available users:
 Installed software:
 - IBM DB2 Express-C 9.7.5
 - Oracle Java JDK 1.7.0_21
-- ElasticSearch 0.90.2
+- ElasticSearch 0.90.3
 - MySQL 5.5.30
 - PHP 5.3.17
 
@@ -40,9 +40,10 @@ Elastic Search:
     * Autostart:    yes
 
 ES site plugins: (*)
-    * Head:         http://host:9200/_plugin/head
-    * Bigdesk:      http://host:9200/_plugin/bigdesk
-    * SegmentSpy:   http://host:9200/_plugin/segmentspy
+    * Head:         http://host:9200/_plugin/head/
+    * Bigdesk:      http://host:9200/_plugin/bigdesk/
+    * SegmentSpy:   http://host:9200/_plugin/segmentspy/
+    * ElasticHQ:    http://host:9200/_plugin/HQ/
 
 ES scripting plugins: (*)
     * Python
