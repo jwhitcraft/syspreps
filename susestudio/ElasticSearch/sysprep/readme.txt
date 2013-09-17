@@ -7,7 +7,7 @@ Available users:
 
 Installed software:
 - Oracle Java JDK 1.7.0_21
-- ElasticSearch 0.90.3
+- ElasticSearch 0.90.4
 
 Elastic Search:
     * Cluster name: elasticsearch
