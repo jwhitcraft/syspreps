@@ -10,8 +10,8 @@ Available users:
 Installed software:
 - IBM DB2 Express-C 9.7.5
 - Oracle Java JDK 1.7.0_21
-- ElasticSearch 0.90.5
-- MySQL 5.5.30
+- ElasticSearch 0.90.6
+- MySQL 5.5.33
 - PHP 5.3.17
 
 Apache:
