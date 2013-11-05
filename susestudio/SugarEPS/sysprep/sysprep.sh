@@ -57,6 +57,7 @@ echo -e "Setting up Apache2 and MySQL ... \c"
 cp /opt/install/sysprep/apache/listen.conf /etc/apache2
 cp /opt/install/sysprep/apache/uid.conf /etc/apache2
 cp /opt/install/sysprep/apache/default.conf /etc/apache2/vhosts.d
+/usr/bin/sed -i s/^APACHE_MODULES=\"/APACHE_MODULES=\"rewrite\ / /etc/sysconfig/apache2
 chown dev:users /var/lib/php5
 chkconfig -a apache2 >> $SYSLOG 2>&1
 chkconfig -a mysql >> $SYSLOG 2>&1
