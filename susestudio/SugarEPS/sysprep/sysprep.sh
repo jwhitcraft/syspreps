@@ -69,7 +69,7 @@ echo "done"
 
 # Elastic Search
 echo -e "Installing Elastic Search ... \c"
-rpm -U /opt/install/elasticsearch-0.90.6.noarch.rpm >> $SYSLOG 2>&1
+rpm -U /opt/install/elasticsearch-0.90.7.noarch.rpm >> $SYSLOG 2>&1
 cp /etc/rc.d/init.d/elasticsearch /etc/init.d
 ln -s /etc/init.d/elasticsearch /sbin/rcelasticsearch
 cp /opt/install/sysprep/elastic/elasticsearch.yml /etc/elasticsearch
