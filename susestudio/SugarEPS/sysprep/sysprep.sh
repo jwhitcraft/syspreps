@@ -3,15 +3,11 @@
 SYSLOG=/opt/install/sysprep/sysprep.log
 touch $SYSLOG
 
-# Java installation
-echo -e "Installing Java ... \c"
-chown -R root:root /opt/install/jdk1.7.0_21
-mv /opt/install/jdk1.7.0_21/ /usr/lib64/
-ln -s -T /usr/lib64/jdk1.7.0_21/ /usr/lib64/jdk_Oracle
-# intall and config alternatives
-/usr/sbin/update-alternatives --install /usr/bin/java java /usr/lib64/jdk_Oracle/bin/java 3 >> $SYSLOG 2>&1
-/usr/sbin/update-alternatives --install /usr/bin/javac javac /usr/lib64/jdk_Oracle/bin/javac 3 >> $SYSLOG 2>&1
-/usr/sbin/update-alternatives --install /usr/lib64/browser-plugins/javaplugin.so javaplugin /usr/lib64/jdk_Oracle/jre/lib/amd64/libnpjp2.so 3 --slave /usr/bin/javaws javaws /usr/lib64/jdk_Oracle/bin/javaws >> $SYSLOG 2>&1
+# Java config
+echo -e "Configuring Java ... \c"
+/usr/sbin/update-alternatives --install /usr/bin/java   java   /usr/java/latest/bin/java   3 >> $SYSLOG 2>&1
+/usr/sbin/update-alternatives --install /usr/bin/javac  javac  /usr/java/latest/bin/javac  3 >> $SYSLOG 2>&1
+/usr/sbin/update-alternatives --install /usr/lib64/browser-plugins/javaplugin.so javaplugin /usr/java/latest/jre/lib/amd64/libnpjp2.so 3 --slave /usr/bin/javaws javaws /usr/java/latest/bin/javaws >> $SYSLOG 2>&1
 /usr/sbin/update-alternatives --config java >> $SYSLOG 2>&1
 /usr/sbin/update-alternatives --config javac >> $SYSLOG 2>&1
 /usr/sbin/update-alternatives --config javaplugin >> $SYSLOG 2>&1
@@ -22,9 +18,8 @@ echo -e "Installing DB2 (can take a while, please be patient) ... \c"
 hostname sugardb2.site >> $SYSLOG 2>&1
 echo "sugardb2.site" > /etc/HOSTNAME
 echo "127.0.0.2 sugardb2.site sugardb2" >> /etc/hosts
-/opt/install/special_27924_linuxamd64_expc/db2setup -f sysreq -r /opt/install/sysprep/db2/db2expc.rsp >> $SYSLOG 2>&1
-# wrong permission on .fenced preventing text search to function
-chown db2inst1:db2iadm1 /home/db2inst1/sqllib/adm/.fenced
+/opt/install/expc/db2setup -f sysreq -r /opt/install/sysprep/db2/db2expc.rsp >> $SYSLOG 2>&1
+
 # db2scripts
 cp /opt/install/sysprep/db2scripts/* /home/db2inst1/bin
 chown db2inst1:users /home/db2inst1/bin/*.sh
@@ -38,13 +33,13 @@ echo "done"
 
 # DB2 php driver
 echo -e "Compiling PHP DB2 connector ... \c"
-cp /opt/install/ibm_db2-1.9.2.tgz /usr/local/src >> $SYSLOG 2>&1
+cp /opt/install/ibm_db2-1.9.5.tgz /usr/local/src >> $SYSLOG 2>&1
 cd /usr/local >> $SYSLOG 2>&1
-tar xfz src/ibm_db2-1.9.2.tgz >> $SYSLOG 2>&1
-cd /usr/local/ibm_db2-1.9.2 >> $SYSLOG 2>&1
+tar xfz src/ibm_db2-1.9.5.tgz >> $SYSLOG 2>&1
+cd /usr/local/ibm_db2-1.9.5 >> $SYSLOG 2>&1
 phpize --clean >> $SYSLOG 2>&1
 phpize >> $SYSLOG 2>&1
-./configure --with-IBM_DB2=/opt/ibm/db2/V9.7 >> $SYSLOG 2>&1
+./configure --with-IBM_DB2=/opt/ibm/db2/V10.5 >> $SYSLOG 2>&1
 make >> $SYSLOG 2>&1
 make install >> $SYSLOG 2>&1
 # php setup
@@ -68,14 +63,13 @@ chown -R dev:users /srv/www/htdocs
 echo "done"
 
 # Elastic Search
-echo -e "Installing Elastic Search ... \c"
-rpm -U /opt/install/elasticsearch-0.90.7.noarch.rpm >> $SYSLOG 2>&1
-cp /etc/rc.d/init.d/elasticsearch /etc/init.d
-ln -s /etc/init.d/elasticsearch /sbin/rcelasticsearch
+echo -e "Config Elastic Search ... \c"
 cp /opt/install/sysprep/elastic/elasticsearch.yml /etc/elasticsearch
 cp /opt/install/sysprep/elastic/elasticsearch /etc/sysconfig
 cp /opt/install/sysprep/elastic/elasticsearch.service /etc/systemd/system
-systemctl --system daemon-reload >> $SYSLOG 2>&1
+systemctl daemon-reload >> $SYSLOG 2>&1
+systemctl enable elasticsearch.service >> $SYSLOG 2>&1
+systemctl start elasticsearch.service >> $SYSLOG 2>&1
 echo "done"
 
 # ES plugins (internet connection required)

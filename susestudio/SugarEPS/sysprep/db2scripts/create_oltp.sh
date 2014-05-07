@@ -16,6 +16,8 @@ echo "*** creating db"
 db2 "CREATE DATABASE SUGARDB USING CODESET UTF-8 TERRITORY US COLLATE USING UCA500R1_LEN_S2 PAGESIZE 32 K"
 echo "*** connecting to db"
 db2 connect to SUGARDB  # To update the parameters below
+echo "*** enable statement concentrator"
+db2 "UPDATE database configuration for SUGARDB using stmt_conc literals"
 echo "*** settings -> applheapsz"
 db2 "UPDATE database configuration for SUGARDB using applheapsz automatic"
 echo "*** settings -> stmtheap"
@@ -58,6 +60,12 @@ echo "*** stop/restart db and connect"
 db2stop
 db2start
 db2 "CONNECT TO SUGARDB"
+
+echo "*** create SYSTOOLSPACE"
+db2 "CREATE TABLESPACE SYSTOOLSPACE IN IBMCATGROUP MANAGED BY AUTOMATIC STORAGE USING STOGROUP IBMSTOGROUP EXTENTSIZE 4"
+echo "*** create SYSTOOLSTMPSPACE"
+db2 "CREATE USER TEMPORARY TABLESPACE SYSTOOLSTMPSPACE IN IBMCATGROUP MANAGED BY AUTOMATIC STORAGE USING STOGROUP IBMSTOGROUP EXTENTSIZE 4"
+
 echo "*** enable text search"
 db2ts ENABLE DATABASE FOR TEXT AUTOGRANT CONNECT TO SUGARDB
 echo "*** start text search"

@@ -2,7 +2,7 @@
 ES_HOME=/usr/share/elasticsearch
 
 # Heap Size (defaults to 256m min, 1g max)
-ES_HEAP_SIZE=256m
+ES_HEAP_SIZE=512m
 
 # Heap new generation
 #ES_HEAP_NEWSIZE=
@@ -18,6 +18,9 @@ MAX_OPEN_FILES=65535
 
 # Maximum amount of locked memory
 MAX_LOCKED_MEMORY=unlimited
+
+# Maximum number of VMA (Virtual Memory Areas) a process can own
+MAX_MAP_COUNT=262144
 
 # ElasticSearch log directory
 LOG_DIR=/var/log/elasticsearch
@@ -38,3 +41,6 @@ CONF_FILE=/etc/elasticsearch/elasticsearch.yml
 # Also make sure, this user can write into the log directories in case you change them
 # This setting only works for the init script, but has to be configured separately for systemd startup
 ES_USER=elasticsearch
+
+# Configure restart on package upgrade (true, every other setting will lead to not restarting)
+#RESTART_ON_UPGRADE=true
